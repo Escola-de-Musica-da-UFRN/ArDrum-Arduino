@@ -5,24 +5,27 @@
 #define ISON_CR true
 #define ISON_RI true
 #define ISON_T1 true
-#define ISON_T2 false
-#define ISON_SU false
+#define ISON_T2 true
+#define ISON_SU true
 
 /*==== ARDUINO UNO / MEGA ====*/
 //#define UNO
 #define MEGA
 
+/*==== DEBUG MESSAGES VIA SERIAL ====*/
+#define DEBUG
+
 /*==== THRESHOLD ====*/
 #define TSHD_STD 150      // Standard Threshold
 
-#define TSHD_CX 230
+#define TSHD_CX 100
 #define TSHD_BU 220
-#define TSHD_CH 170
-#define TSHD_CR 200
-#define TSHD_RI TSHD_STD
-#define TSHD_T1 200
-#define TSHD_T2 TSHD_STD
-#define TSHD_SU 5
+#define TSHD_CH 220
+#define TSHD_CR 220
+#define TSHD_RI 200
+#define TSHD_T1 230
+#define TSHD_T2 200
+#define TSHD_SU 200
 
 /*==== WAIT ====*/
 #define WAIT_STD 60       // Standard Wait Time
@@ -60,8 +63,10 @@ int aux7 = WAIT_STD, aux6 = WAIT_STD, aux5 = WAIT_STD, aux4 = WAIT_STD, aux3 = W
 #define PIN_SU 9 // floor
 
 void setup() {
-  Serial.begin(115200);   // starting serial
-
+  #ifdef DEBUG
+  Serial.begin(115200);   // starting serial to debug
+  #endif
+  
   pinMode(PIN_CX, OUTPUT); // snare
   pinMode(PIN_BU, OUTPUT); // kick
   pinMode(PIN_CH, OUTPUT); // hi-hat
@@ -94,6 +99,10 @@ void loop() {
     delayMicroseconds(DIGI_DELAY);
     digitalWrite(PIN_SU, LOW);
     aux7 = WAIT_SU;
+    
+    #ifdef DEBUG
+    Serial.println("floor");
+    #endif
   }
 
   // tom2
@@ -102,6 +111,10 @@ void loop() {
     delayMicroseconds(DIGI_DELAY);
     digitalWrite(PIN_T2, LOW);
     aux6 = WAIT_T2;
+    
+    #ifdef DEBUG
+    Serial.println("tom2");
+    #endif
   }
 #endif
 
@@ -111,6 +124,10 @@ void loop() {
     delayMicroseconds(DIGI_DELAY);
     digitalWrite(PIN_T1, LOW);
     aux5 = WAIT_T1;
+
+    #ifdef DEBUG
+    Serial.println("tom1");
+    #endif
   }
 
   // ride
@@ -119,6 +136,10 @@ void loop() {
     delayMicroseconds(DIGI_DELAY);
     digitalWrite(PIN_RI, LOW);
     aux4 = WAIT_RI;
+
+    #ifdef DEBUG
+    Serial.println("ride");
+    #endif
   }
 
   // crash
@@ -127,6 +148,10 @@ void loop() {
     delayMicroseconds(DIGI_DELAY);
     digitalWrite(PIN_CR, LOW);
     aux3 = WAIT_CR;
+
+    #ifdef DEBUG
+    Serial.println("crash");
+    #endif
   }
 
   // hi-hat
@@ -135,6 +160,10 @@ void loop() {
     delayMicroseconds(DIGI_DELAY);
     digitalWrite(PIN_CH, LOW);
     aux2 = WAIT_CH;
+
+    #ifdef DEBUG
+    Serial.println("hi-hat");
+    #endif
   }
 
   // kick
@@ -143,6 +172,10 @@ void loop() {
     delayMicroseconds(DIGI_DELAY);
     digitalWrite(PIN_BU, LOW);
     aux1 = WAIT_BU;
+
+    #ifdef DEBUG
+    Serial.println("kick");
+    #endif
   }
 
   // snare
@@ -151,6 +184,10 @@ void loop() {
     delayMicroseconds(DIGI_DELAY);
     digitalWrite(PIN_CX, LOW);
     aux0 = WAIT_CX;
+
+    #ifdef DEBUG
+    Serial.println("snare");
+    #endif
   }
 
   // removing one from wait time
