@@ -10,9 +10,6 @@
 char ssid[] = "Andrade";
 char pass[] = "mvtmjsunp";
 
-//char ssid[] = "matheus";
-//char pass[] = "123454321";
-
 /*==== PINS ====*/
 #define PIN_CX D0 // snare
 #define PIN_BU D1 // kick
@@ -25,7 +22,7 @@ char pass[] = "mvtmjsunp";
 
 WiFiUDP Udp;                           // A UDP instance to let us send and receive packets over UDP
 const IPAddress destIp(192,168,0,53);  // remote IP of the target device
-const unsigned int destPort = 9009;    // remote port of the target device where the NodeMCU sends OSC to
+const unsigned int destPort = 54322;    // remote port of the target device where the NodeMCU sends OSC to
 const unsigned int localPort = 8000;   // local port to listen for UDP packets at the NodeMCU (another device must send OSC messages to this port)
 
 OSCMessage msg_CX("/p1tgr/1");
@@ -40,7 +37,7 @@ OSCMessage msg_SU("/p8tgr/1");
 void setup() {
   Serial.begin(115200);
 
-  WiFi.config(IPAddress(192,168,0,123),IPAddress(192,168,0,1), IPAddress(255,255,255,0));
+  WiFi.config(IPAddress(192,168,43,123),IPAddress(192,168,43,1), IPAddress(255,255,255,0));
 
   Serial.println();
     Serial.print("Connecting to ");
